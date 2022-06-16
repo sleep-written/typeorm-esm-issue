@@ -5,16 +5,15 @@
       ],
       "target": "es2021",
       "module": "es2022",
-      "moduleResolution": "node",
       
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-
+      
       "outDir": "./dist",
       "sourceMap": true,
-
+      
       "strict": true,
-      "strictNullChecks": false
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true
    }
 }

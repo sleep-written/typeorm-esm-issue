@@ -4,14 +4,14 @@ import { User } from './user.js';
 @Entity({ name: 'UserType' })
 export class UserType extends BaseEntity {
     @PrimaryGeneratedColumn({ type: 'tinyint' })
-    id: number;
+    id!: number;
 
     @Column({ type: 'varchar', length: 20 })
-    cod: string;
+    cod!: string;
 
     @Column({ type: 'varchar', length: 100 })
-    desc: string;
+    desc!: string;
 
     @OneToMany(() => User, r => r.userType)
-    users: User[];
+    users!: User[];
 }

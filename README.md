@@ -1,6 +1,6 @@
 # TypeORM ESM Issue
 
-This project is a demostration of an issue encountered when you try to make a project using the TypeORM CLI. The problem occurs when you try to generate a migration and you have 2 entities with a one-to-many/many-to-one relation (declared in both entities):
+This project is a demostration of an issue encountered when you try to make a project in __ESM__ with typeORM. The problem occurs when you try to generate a migration and you have 2 entities with a one-to-many/many-to-one relation (declared in both entities):
 
 ### Command used:
 ```bash
@@ -13,9 +13,11 @@ Error during migration generation:
 ReferenceError: Cannot access 'UserType' before initialization
 ```
 
-But if you comment in both entities the relationship, the error doesn't appears.
+But if you comment in both entities the relationship, the error doesn't appears. This problem doesn't occurs in __CommonJS_ project (you can check this switching to the branch `"commonjs"`)
 
 ## How to replicate the error
+
+This project has been made in WSL with SQL Server.
 
 1. install dependencies:
     ```bash
@@ -41,17 +43,17 @@ import { UserType } from './user-type.js';
 @Entity({ name: 'User' })
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn({ type: 'int' })
-    id: number
+    id!: number
 
     @Column({ type: 'varchar', length: 20 })
-    nick: string;
+    nick!: string;
 
     @Column({ type: 'varchar', length: 64 })
-    pass: string;
+    pass!: string;
 
     // Comment this
     // @ManyToOne(() => UserType, r => r.users)
-    // userType: UserType;
+    // userType!: UserType;
 }
 ```
 
@@ -63,17 +65,17 @@ import { User } from './user.js';
 @Entity({ name: 'UserType' })
 export class UserType extends BaseEntity {
     @PrimaryGeneratedColumn({ type: 'tinyint' })
-    id: number;
+    id1: number;
 
     @Column({ type: 'varchar', length: 20 })
-    cod: string;
+    cod1: string;
 
     @Column({ type: 'varchar', length: 100 })
-    desc: string;
+    desc1: string;
 
     // Comment this too
     // @OneToMany(() => User, r => r.userType)
-    // users: User[];
+    // users1: User[];
 }
 ```
 
