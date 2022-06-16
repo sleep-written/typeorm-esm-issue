@@ -13,7 +13,7 @@ Error during migration generation:
 ReferenceError: Cannot access 'UserType' before initialization
 ```
 
-But if you comment in both entities the relationship, the error doesn't appears. This problem doesn't occurs in __CommonJS_ project (you can check this switching to the branch `"commonjs"`)
+But if you comment in both entities the relationship, the error doesn't appears. This problem doesn't occurs in __CommonJS__ project (you can check this switching to the branch `"commonjs"`)
 
 ## How to replicate the error
 
