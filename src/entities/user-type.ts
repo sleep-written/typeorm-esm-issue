@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './user.js';
+import { User } from './user';
 
 @Entity({ name: 'UserType' })
 export class UserType extends BaseEntity {
