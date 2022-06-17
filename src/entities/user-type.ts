@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Relation } from 'typeorm';
 import { User } from './user.js';
 
 @Entity({ name: 'UserType' })
@@ -13,5 +13,5 @@ export class UserType extends BaseEntity {
     desc!: string;
 
     @OneToMany(() => User, r => r.userType)
-    users!: User[];
+    users!: Relation<User>[];
 }

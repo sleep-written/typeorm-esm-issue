@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, Relation } from "typeorm";
 import { UserType } from './user-type.js';
 
 @Entity({ name: 'User' })
@@ -13,5 +13,5 @@ export class User extends BaseEntity {
     pass!: string;
 
     @ManyToOne(() => UserType, r => r.users)
-    userType!: UserType;
+    userType!: Relation<UserType>;
 }

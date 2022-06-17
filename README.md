@@ -1,5 +1,55 @@
 # TypeORM ESM Issue
 
+## <u>__FIXED__</u>
+
+I found [this article](https://typeorm.io/faq#how-to-use-typeorm-in-esm-projects), the problem is generated because in __ESM__ projects, the relationships requires to use the type `Relation<T>`:
+
+`./src/entities/user.ts`
+```ts
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, Relation } from "typeorm";
+import { UserType } from './user-type.js';
+
+@Entity({ name: 'User' })
+export class User extends BaseEntity {
+    @PrimaryGeneratedColumn({ type: 'int' })
+    id!: number
+
+    @Column({ type: 'varchar', length: 20 })
+    nick!: string;
+
+    @Column({ type: 'varchar', length: 64 })
+    pass!: string;
+
+    // This is the fix
+    @ManyToOne(() => UserType, r => r.users)
+    userType!: Relation<UserType>;
+}
+```
+
+`./src/entities/user-type.ts`
+```ts
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Relation } from 'typeorm';
+import { User } from './user.js';
+
+@Entity({ name: 'UserType' })
+export class UserType extends BaseEntity {
+    @PrimaryGeneratedColumn({ type: 'tinyint' })
+    id!: number;
+
+    @Column({ type: 'varchar', length: 20 })
+    cod!: string;
+
+    @Column({ type: 'varchar', length: 100 })
+    desc!: string;
+
+    // This is the fix
+    @OneToMany(() => User, r => r.userType)
+    users!: Relation<User>[];
+}
+```
+
+<hr />
+
 This project is a demostration of an issue encountered when you try to make a project in __ESM__ with typeORM. The problem occurs when you try to generate a migration and you have 2 entities with a one-to-many/many-to-one relation (declared in both entities):
 
 ### Command used:
